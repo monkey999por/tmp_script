@@ -2,20 +2,24 @@ function Copy-FileToSameName
 {
     param(
         [Parameter(Mandatory, HelpMessage="‘—‚è‘¤")]
-        [System.IO.FileInfo]$source,
+        [string]$source,
 
         [Parameter(Mandatory,HelpMessage="Žó‚¯‘¤")]
-        [System.IO.DirectoryInfo]$destination
+        [string]$destination
     )
-    $source.FullName
-    $destination.FullName
+    # is Exist ?
+    $_source = [System.IO.FileInfo]::new("$(Convert-Path -Path $source)")
+    $_destination = [System.IO.DirectoryInfo]::new("$(Convert-Path -Path $destination)")
+    $file_list = [System.IO.Directory]::GetFiles(
+        $_destination.FullName.Split("`""),
+        $_source.Name.Split("`""),
+        [System.IO.SearchOption]::AllDirectories)
 
-    return
-
-    foreach ($item in (Get-ChildItem -Path $destination -File -Recurse))
+    foreach ($item in $file_list)
     {
-        $item.Name
+        if ($item -ne $_source.FullName.Split("`""))
+        {
+            Copy-Item -Path $_source.FullName.Split("`"") -Destination $item
+        }
     }
-    
-
 }
