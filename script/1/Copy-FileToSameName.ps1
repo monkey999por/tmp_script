@@ -1,4 +1,4 @@
-function Copy-FileToSameName
+function Global:Copy-FileToSameName
 {
     param(
         [Parameter(Mandatory, HelpMessage="‘—‚è‘¤")]
@@ -20,6 +20,7 @@ function Copy-FileToSameName
         if ($item -ne $_source.FullName.Split("`""))
         {
             Copy-Item -Path $_source.FullName.Split("`"") -Destination $item
+
         }
     }
 }
