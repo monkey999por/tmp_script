@@ -6,20 +6,31 @@ class MyClass {
 
     [int]$age = 20
 
-    [System.Collections.ArrayList[string]]$favolite
+    [System.Collections.ArrayList]$favolite
 
-    #[System.Collections.Generic.Dictionary[string, string]]$mapping
+    [System.Collections.Generic.Dictionary[string, string]]$mapping
 
     MyClass (){
-        #$this.favolite = [System.Collections.ArrayList[string]]::new()
+        $this.favolite = [System.Collections.ArrayList]::new()
+        $this.favolite.Add("hello")
+        $this.favolite.Add("world")
+
+        $this.mapping = [System.Collections.Generic.Dictionary[string, string]]::new()
+        $this.mapping.Add("1", "base")
+        $this.mapping.Add("2", "new")
+
     }
 
-    [MyClass] getField () {
+    [MyClass] getThis () {
         return [MyClass]::new()
+        
     }
 }
 
 $result = [MyClass]::new()
-$result.getField()
+$test = $result.getThis()
+$test.mapping["2"]
+
+
 
 
